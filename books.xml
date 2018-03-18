@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<cookbooks>
+ <book id="1">
+  <Author>Pat Neely,Gina Neely</Author>
+  <Title>Down Home with the Neelys: A Southern Family Cookbook</Title>
+  <Year>2009</Year>
+  <Cuisine>American,Southern American</Cuisine>
+ </book>
+ <book id="2">
+  <Author>Giada De Laurentiis</Author>
+  <Title>Giada's Italy: My Recipes for La Dolce Vita</Title>
+  <Year>2018</Year>
+  <Cuisine>Italian</Cuisine>
+ </book>
+ <book id="3">
+  <Author>Marcus Samuelsson</Author>
+  <Title>Marcus Off Duty: The Recipes I Cook at Home</Title>
+  <Year>2014</Year>
+  <Cuisine>Ethiopian,Swedish,Mexican,Caribbean,Italian,Southern American</Cuisine>
+ </book>
+</cookbooks>

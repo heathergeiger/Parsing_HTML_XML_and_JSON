@@ -1,0 +1,110 @@
+# Parsing HTML, XML, and JSON files using R
+## Data 607 assignment
+### Heather Geiger; March 18, 2018
+
+### Introduction
+
+Instructions:
+
+"Pick three of your favorite books on one of your favorite subjects. At least one of the books should have more
+than one author. For each book, include the title, authors, and two or three other attributes that you find
+interesting.
+
+Take the information that you’ve selected about these three books, and separately create three files which
+store the book’s information in HTML (using an html table), XML, and JSON formats.
+
+Write R code, using your packages of choice, to load the information from each of the three sources into
+separate R data frames. Are the three data frames identical?"
+
+For this assignment, I chose three different cookbooks from Food Network authors.
+
+HTML, XML, and JSON files are all available here:
+
+https://github.com/heathergeiger/Parsing_HTML_XML_and_JSON
+
+### Parsing and comparing results
+
+Load libraries.
+
+```{r, echo=TRUE,eval=FALSE}
+library(XML)
+library(RJSONIO)
+```
+
+```{r, echo=FALSE,eval=TRUE}
+#Load Rdata file.
+#This contains the three data frames, plus json_parsed_original as output by fromJSON command.
+#The steps below were all actually run, but on a different server using R instead of Rstudio. So, I load in the results from Rdata file, and then show code but mostly do not actually evaluate it below.
+load("parsed_data_frames.Rdata")
+```
+
+Parse XML file.
+
+```{r, echo=TRUE,eval=FALSE}
+xml_parsed <- xmlParse("books.xml")
+root <- xmlRoot(xml_parsed)
+books_from_xml_dat <- xmlToDataFrame(root)
+```
+
+Parse HTML file.
+
+```{r, echo=TRUE,eval=FALSE}
+html_parsed <- readHTMLTable("books_table.html")
+books_from_html_dat <- html_parsed[[1]]
+```
+
+Parse JSON file.
+
+Start by looking at number of elements in JSON file, then that determines which elements to get to obtain the info data frame.
+
+Save this in object json_parsed.
+
+```{r, echo=TRUE,eval=FALSE}
+json_parsed_original <- fromJSON("books_table.json")
+length(json_parsed_original)
+length(names(json_parsed_original[[1]]))
+json_parsed <- json_parsed_original[[1]][[1]]
+```
+
+```{r, echo=FALSE,eval=TRUE}
+length(json_parsed_original)
+length(names(json_parsed_original[[1]]))
+```
+
+Take the number of items in the first element of json_parsed as the number of columns, and the number of elements in json_parsed as the number of rows.
+
+Then, make an empty data frame.
+
+```{r, echo=TRUE,eval=FALSE}
+books_from_json_dat <- data.frame(matrix(NA,
+				nrow=length(json_parsed),
+				ncol=length(json_parsed[[1]]),
+				dimnames=list(1:length(json_parsed),
+					names(json_parsed[[1]]))),
+			stringsAsFactors=FALSE)
+```
+
+Fill the empty data frame row by row with the data from the JSON.
+
+```{r, echo=TRUE,eval=FALSE}
+for(i in 1:length(json_parsed))
+{
+books_from_json_dat[i,] <- unlist(json_parsed[[i]])
+}
+```
+
+Check what data frames look like, and if they are actually the same.
+
+```{r}
+books_from_html_dat
+books_from_xml_dat
+books_from_json_dat
+
+identical(books_from_html_dat,books_from_xml_dat)
+identical(books_from_html_dat,books_from_json_dat)
+
+class(books_from_html_dat$Author)
+class(books_from_json_dat$Author)
+```
+
+We find that HTML and XML produce the exact same result. JSON results look the same, but columns are character instead of factor as in HTML/XML.

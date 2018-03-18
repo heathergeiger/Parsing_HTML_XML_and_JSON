@@ -1,0 +1,24 @@
+{
+  "cookbooks": {
+    "book": [
+      {
+        "Author": "Pat Neely,Gina Neely",
+        "Title": "Down Home with the Neelys: A Southern Family Cookbook",
+        "Year": "2009",
+        "Cuisine": "American,Southern American"
+      },
+      {
+        "Author": "Giada De Laurentiis",
+        "Title": "Giada's Italy: My Recipes for La Dolce Vita",
+        "Year": "2018",
+        "Cuisine": "Italian"
+      },
+      {
+        "Author": "Marcus Samuelsson",
+        "Title": "Marcus Off Duty: The Recipes I Cook at Home",
+        "Year": "2014",
+        "Cuisine": "Ethiopian,Swedish,Mexican,Caribbean,Italian,Southern American"
+      }
+    ]
+  }
+}
